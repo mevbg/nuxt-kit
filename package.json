@@ -1,0 +1,83 @@
+{
+  "name": "@mevbg/nuxt-kit",
+  "title": "Mev’s Nuxt Kit",
+  "version": "0.0.0",
+  "description": "Mev’s personal Nuxt kit module.",
+  "keywords": [
+    "nuxt kit",
+    "nuxt starter",
+    "nuxt scaffolding",
+    "nuxt module",
+    "mevbg",
+    "personal"
+  ],
+  "homepage": "https://github.com/mevbg/nuxt-kit#readme",
+  "bugs": {
+    "url": "https://github.com/mevbg/nuxt-kit/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mevbg/nuxt-kit.git"
+  },
+  "license": "ISC",
+  "author": {
+    "name": "Martin Metodiev • Mev",
+    "email": "martin@mev.bg",
+    "url": "https://mev.bg"
+  },
+  "type": "module",
+  "main": "./dist/module.mjs",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./dist/types.d.mts",
+        "./src/types.d.ts"
+      ]
+    }
+  },
+  "types": "./src/types.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types.d.mts",
+      "import": "./dist/module.mjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepack": "nuxt-module-build build",
+    "dev": "npm run dev:prepare && nuxi dev playground",
+    "dev:build": "nuxi build playground",
+    "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
+    "release": "npm run lint && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "engines": {
+    "node": ">=22.x",
+    "npm": ">=10.x"
+  },
+  "dependencies": {
+    "@mevbg/design-essentials-vendor": "^2.0.4",
+    "@mevbg/nuxt-color-scheme": "^1.0.1",
+    "@nuxt/kit": "^4.0.3"
+  },
+  "devDependencies": {
+    "@nuxt/devtools": "^2.6.2",
+    "@nuxt/eslint-config": "^1.8.0",
+    "@nuxt/module-builder": "^1.0.2",
+    "@nuxt/schema": "^4.0.3",
+    "@types/node": "latest",
+    "changelogen": "^0.6.2",
+    "eslint": "^9.33.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "nuxt": "^4.0.3",
+    "prettier-plugin-organize-imports": "^4.2.0",
+    "typescript": "~5.9.2",
+    "vue-tsc": "^3.0.5"
+  }
+}
