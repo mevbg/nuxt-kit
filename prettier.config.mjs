@@ -11,10 +11,6 @@ export default {
   endOfLine: 'lf',
   htmlWhitespaceSensitivity: 'strict',
   vueIndentScriptAndStyle: true,
-  // Vue specific settings
-  vueIndentScriptAndStyle: true,
-  // Ensure attributes are properly formatted
-  htmlWhitespaceSensitivity: 'css',
   // Override for Vue files
   overrides: [
     {
