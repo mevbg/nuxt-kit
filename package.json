@@ -61,7 +61,7 @@
   },
   "dependencies": {
     "@mevbg/design-essentials-vendor": "^2.0.4",
-    "@mevbg/nuxt-color-scheme": "^1.0.1",
+    "@mevbg/nuxt-color-scheme": "^1.0.2",
     "@nuxt/kit": "^4.0.3"
   },
   "devDependencies": {
