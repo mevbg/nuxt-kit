@@ -22,15 +22,7 @@ export default defineNuxtModule<NuxtKitOptions>({
     }
   },
 
-  async setup(options: NuxtKitOptions, nuxt: any) {
-    // Add the configuration to the runtime config
-    nuxt.options.runtimeConfig.public.mevKit = {
-      colorScheme: {
-        default: options.colorScheme?.default ?? DEFAULT_COLOR_SCHEME,
-        systemScheme: options.colorScheme?.systemScheme ?? true
-      }
-    };
-
+  async setup(options: NuxtKitOptions) {
     // Create the path resolver
     const resolver = createResolver(import.meta.url);
 
@@ -39,6 +31,9 @@ export default defineNuxtModule<NuxtKitOptions>({
     addPlugin(resolver.resolve('./runtime/plugins/wm.plugin'));
 
     // Install the Nuxt Color Scheme module
-    await installModule('@mevbg/nuxt-color-scheme');
+    await installModule('@mevbg/nuxt-color-scheme', {
+      default: options.colorScheme?.default ?? DEFAULT_COLOR_SCHEME,
+      systemScheme: options.colorScheme?.systemScheme ?? true
+    });
   }
 });
