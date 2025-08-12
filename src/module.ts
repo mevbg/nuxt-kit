@@ -1,4 +1,5 @@
 import { addPlugin, createResolver, defineNuxtModule, installModule } from '@nuxt/kit';
+import type { Nuxt } from 'nuxt/schema';
 import { DEFAULT_COLOR_SCHEME } from './runtime/defaults';
 import type { NuxtKitOptions } from './types/options';
 
@@ -16,13 +17,17 @@ export default defineNuxtModule<NuxtKitOptions>({
 
   // Default configuration options of the Nuxt module
   defaults: {
+    wm: true,
     colorScheme: {
       default: DEFAULT_COLOR_SCHEME,
       systemScheme: true
     }
   },
 
-  async setup(options: NuxtKitOptions) {
+  async setup(options: NuxtKitOptions, nuxt: Nuxt) {
+    // Add the configuration to the runtime config
+    nuxt.options.runtimeConfig.public.wm = options.wm;
+
     // Create the path resolver
     const resolver = createResolver(import.meta.url);
 
