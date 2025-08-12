@@ -1,6 +1,6 @@
 <template>
   <div :style="{ textAlign: 'center' }">
-    <h1>Nuxt Kit</h1>
+    <h1>Mev’s Nuxt Kit</h1>
 
     <div
       :style="{
