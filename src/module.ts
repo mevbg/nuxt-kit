@@ -3,6 +3,7 @@ import {
   addComponent,
   addImports,
   addPlugin,
+  addServerImportsDir,
   createResolver,
   defineNuxtModule,
   installModule
@@ -56,6 +57,8 @@ export default defineNuxtModule<NuxtKitOptions>({
         from: resolver.resolve('./runtime/composables/client-info.composable')
       }
     ]);
+
+    addServerImportsDir(resolver.resolve('./runtime/server/utils'));
 
     addComponent({
       name: 'ConditionalClientOnly',
