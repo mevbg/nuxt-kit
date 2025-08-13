@@ -49,6 +49,8 @@ export default defineNuxtModule<NuxtKitOptions>({
     // Do not add the extension since the `.ts` will be
     // transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugins/wm.plugin'));
+    addPlugin(resolver.resolve('./runtime/plugins/notification-system.plugin'));
+    addPlugin(resolver.resolve('./runtime/plugins/tooltip-system.plugin'));
 
     // Import the composable
     addImports([
