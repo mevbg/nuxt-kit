@@ -37,36 +37,67 @@ export default defineNuxtModule<NuxtKitOptions>({
     // Add the configuration to the runtime config
     nuxt.options.runtimeConfig.public.wm = options.wm;
 
-    // Install the Nuxt Color Scheme module
-    await installModule('@mevbg/nuxt-color-scheme', {
-      default: options.colorScheme?.default ?? DEFAULT_COLOR_SCHEME,
-      systemScheme: options.colorScheme?.systemScheme ?? true
-    });
+    // Install the modules
+    Promise.all([
+      installModule('@vueuse/nuxt'),
+      installModule('@mevbg/nuxt-color-scheme', {
+        default: options.colorScheme?.default ?? DEFAULT_COLOR_SCHEME,
+        systemScheme: options.colorScheme?.systemScheme ?? true
+      })
+    ]);
 
     // Create the path resolver
     const resolver = createResolver(import.meta.url);
 
+    // Add the plugins
     // Do not add the extension since the `.ts` will be
     // transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugins/wm.plugin'));
     addPlugin(resolver.resolve('./runtime/plugins/notification-system.plugin'));
     addPlugin(resolver.resolve('./runtime/plugins/tooltip-system.plugin'));
 
-    // Import the composable
+    // Add the composables
     addImports([
       {
         name: 'useClientInfo',
-        from: resolver.resolve('./runtime/composables/client-info.composable')
+        from: resolver.resolve('./runtime/composables/useClientInfo')
+      },
+      {
+        name: 'useErrorHandler',
+        from: resolver.resolve('./runtime/composables/useErrorHandler')
+      },
+      {
+        name: 'useNetworkListener',
+        from: resolver.resolve('./runtime/composables/useNetworkListener')
+      },
+      {
+        name: 'useNotificationSystem',
+        from: resolver.resolve('./runtime/composables/useNotificationSystem')
+      },
+      {
+        name: 'useScrollDirectionUp',
+        from: resolver.resolve('./runtime/composables/useScrollDirectionUp')
+      },
+      {
+        name: 'useMetaData',
+        from: resolver.resolve('./runtime/composables/useMetaData')
+      },
+      {
+        name: 'useHeadLinks',
+        from: resolver.resolve('./runtime/composables/useHeadLinks')
       }
     ]);
 
+    // Add the server utils
     addServerImportsDir(resolver.resolve('./runtime/server/utils'));
 
+    // Add the components
     addComponent({
       name: 'ConditionalClientOnly',
       filePath: resolver.resolve('./runtime/components/ConditionalClientOnly.vue')
     });
 
+    // Generate the design essentials
     nuxt.hook('modules:done', async () => {
       if (options.designEssentials) {
         console.info('Generating design essentials...');

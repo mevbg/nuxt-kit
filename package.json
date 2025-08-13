@@ -68,6 +68,7 @@
     "@mevbg/design-essentials-vendor": "^2.0.4",
     "@mevbg/nuxt-color-scheme": "^1.0.5",
     "@nuxt/kit": "^4.0.3",
+    "@vueuse/nuxt": "^13.6.0",
     "floating-vue": "^5.2.2",
     "mobile-device-detect": "^0.4.3",
     "vue3-toastify": "^0.2.8"
