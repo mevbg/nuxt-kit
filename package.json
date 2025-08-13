@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "@mevbg/design-essentials-vendor": "^2.0.4",
-    "@mevbg/nuxt-color-scheme": "^1.0.4",
+    "@mevbg/nuxt-color-scheme": "^1.0.5",
     "@nuxt/kit": "^4.0.3",
     "mobile-device-detect": "^0.4.3"
   },
