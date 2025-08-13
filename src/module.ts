@@ -1,3 +1,4 @@
+import { generateDesignEssentials } from '@mevbg/design-essentials-vendor';
 import {
   addComponent,
   addImports,
@@ -59,6 +60,20 @@ export default defineNuxtModule<NuxtKitOptions>({
     addComponent({
       name: 'ConditionalClientOnly',
       filePath: resolver.resolve('./runtime/components/ConditionalClientOnly.vue')
+    });
+
+    nuxt.hook('modules:done', async () => {
+      if (options.designEssentials) {
+        console.info('Generating design essentials...');
+
+        try {
+          await generateDesignEssentials(options.designEssentials);
+          console.info('Design essentials generated successfully!');
+        } catch (err) {
+          console.error('Failed to generate design essentials:', err);
+          throw err;
+        }
+      }
     });
   }
 });
