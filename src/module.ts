@@ -1,4 +1,11 @@
-import { addPlugin, createResolver, defineNuxtModule, installModule } from '@nuxt/kit';
+import {
+  addComponent,
+  addImports,
+  addPlugin,
+  createResolver,
+  defineNuxtModule,
+  installModule
+} from '@nuxt/kit';
 import type { Nuxt } from 'nuxt/schema';
 import { DEFAULT_COLOR_SCHEME } from './runtime/defaults';
 import type { NuxtKitOptions } from './types/options';
@@ -28,6 +35,12 @@ export default defineNuxtModule<NuxtKitOptions>({
     // Add the configuration to the runtime config
     nuxt.options.runtimeConfig.public.wm = options.wm;
 
+    // Install the Nuxt Color Scheme module
+    await installModule('@mevbg/nuxt-color-scheme', {
+      default: options.colorScheme?.default ?? DEFAULT_COLOR_SCHEME,
+      systemScheme: options.colorScheme?.systemScheme ?? true
+    });
+
     // Create the path resolver
     const resolver = createResolver(import.meta.url);
 
@@ -35,10 +48,17 @@ export default defineNuxtModule<NuxtKitOptions>({
     // transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugins/wm.plugin'));
 
-    // Install the Nuxt Color Scheme module
-    await installModule('@mevbg/nuxt-color-scheme', {
-      default: options.colorScheme?.default ?? DEFAULT_COLOR_SCHEME,
-      systemScheme: options.colorScheme?.systemScheme ?? true
+    // Import the composable
+    addImports([
+      {
+        name: 'useClientInfo',
+        from: resolver.resolve('./runtime/composables/client-info.composable')
+      }
+    ]);
+
+    addComponent({
+      name: 'ConditionalClientOnly',
+      filePath: resolver.resolve('./runtime/components/ConditionalClientOnly.vue')
     });
   }
 });

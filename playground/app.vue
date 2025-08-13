@@ -2,58 +2,64 @@
   <div :style="{ textAlign: 'center' }">
     <h1>Mev’s Nuxt Kit</h1>
 
-    <div
-      :style="{
-        display: 'inline-flex',
-        justifyContent: 'left',
-        gap: '20px'
-      }"
-    >
-      <div v-for="(btn, index) in colorSchemeModes" :key="index" @click="setColorSchemeMode(btn)">
-        <div
-          :style="{
-            display: 'inline-flex',
-            justifyContent: 'left',
-            gap: '4px',
-            cursor: 'pointer'
-          }"
-        >
-          <input
-            :id="btn"
-            v-model="colorSchemeMode"
-            name="colorSchemeMode"
-            type="radio"
-            :value="btn"
+    <ConditionalClientOnly :condition="!serverSideSystemScheme">
+      <div
+        :style="{
+          display: 'inline-flex',
+          justifyContent: 'left',
+          gap: '20px'
+        }"
+      >
+        <div v-for="(btn, index) in colorSchemeModes" :key="index" @click="setColorSchemeMode(btn)">
+          <div
             :style="{
-              cursor: 'pointer'
-            }"
-          />
-          <label
-            :for="btn"
-            :style="{
+              display: 'inline-flex',
+              justifyContent: 'left',
+              gap: '4px',
               cursor: 'pointer'
             }"
           >
-            {{ btn.charAt(0).toUpperCase() + btn.slice(1) }}
-          </label>
+            <input
+              :id="btn"
+              v-model="colorSchemeMode"
+              name="colorSchemeMode"
+              type="radio"
+              :value="btn"
+              :style="{
+                cursor: 'pointer'
+              }"
+            />
+            <label
+              :for="btn"
+              :style="{
+                cursor: 'pointer'
+              }"
+            >
+              {{ btn.charAt(0).toUpperCase() + btn.slice(1) }}
+            </label>
+          </div>
         </div>
       </div>
-    </div>
+    </ConditionalClientOnly>
   </div>
 </template>
 
 <script setup>
+  import ConditionalClientOnly from '../src/runtime/components/ConditionalClientOnly.vue';
+
   const {
     availableModes: colorSchemeModes,
     currentMode: colorSchemeMode,
     className: colorSchemeClassName,
+    serverSideSystemScheme,
     setColorSchemeMode
   } = useColorScheme();
+  const { classes: clientClasses } = useClientInfo();
 
   useHead({
     htmlAttrs: {
-      class: computed(() => colorSchemeClassName.value),
-      lang: 'bg-BG'
+      lang: 'bg-BG',
+      class: computed(() => [colorSchemeClassName.value, ...clientClasses].join(' '))
     }
   });
 </script>
