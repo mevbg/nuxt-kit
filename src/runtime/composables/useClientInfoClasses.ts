@@ -1,4 +1,4 @@
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, ref } from 'vue';
 
 export function useClientInfoClasses() {
   const data = ref<Record<string, any>>({});
@@ -9,16 +9,17 @@ export function useClientInfoClasses() {
     )
   );
 
-  onBeforeMount(async () => {
+  const setClientInfoClasses = async () => {
     const {
       default: defaultInfo,
       deviceDetect,
       ...clientData
     } = await import('mobile-device-detect');
+
     data.value = clientData;
 
     window.document.documentElement.classList.add(...classes.value);
-  });
+  };
 
-  return { data, classes };
+  return { setClientInfoClasses };
 }

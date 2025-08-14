@@ -48,6 +48,7 @@
   import pkg from '../package.json';
   import ConditionalClientOnly from '../src/runtime/components/ConditionalClientOnly.vue';
 
+  const { setClientInfoClasses } = useClientInfoClasses();
   const {
     availableModes: colorSchemeModes,
     currentMode: colorSchemeMode,
@@ -56,7 +57,6 @@
     setColorSchemeMode
   } = useColorScheme();
 
-  useClientInfoClasses();
   useHead({
     title: pkg.title,
 
@@ -64,6 +64,10 @@
       lang: 'bg-BG',
       class: computed(() => [colorSchemeClassName.value].join(' '))
     }
+  });
+
+  onBeforeMount(() => {
+    setClientInfoClasses();
   });
 </script>
 
