@@ -1,6 +1,6 @@
 <template>
   <div :style="{ textAlign: 'center' }">
-    <h1>Mev’s Nuxt Kit</h1>
+    <h1>{{ pkg.title }}</h1>
 
     <ConditionalClientOnly :condition="!serverSideSystemScheme">
       <div
@@ -45,6 +45,7 @@
 </template>
 
 <script setup>
+  import pkg from '../package.json';
   import ConditionalClientOnly from '../src/runtime/components/ConditionalClientOnly.vue';
 
   const {
@@ -57,6 +58,8 @@
   const { classes: clientClasses } = useClientInfo();
 
   useHead({
+    title: pkg.title,
+
     htmlAttrs: {
       lang: 'bg-BG',
       class: computed(() => [colorSchemeClassName.value, ...clientClasses].join(' '))
