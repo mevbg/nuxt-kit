@@ -43,6 +43,14 @@
     "./configs": {
       "types": "./dist/runtime/configs/index.d.ts",
       "import": "./dist/runtime/configs/index.js"
+    },
+    "./composables": {
+      "types": "./dist/runtime/composables/index.d.ts",
+      "import": "./dist/runtime/composables/index.js"
+    },
+    "./useNotificationSystem": {
+      "types": "./dist/runtime/composables/useNotificationSystem.d.ts",
+      "import": "./dist/runtime/composables/useNotificationSystem.js"
     }
   },
   "files": [
