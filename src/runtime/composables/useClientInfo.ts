@@ -9,10 +9,12 @@ export function useClientInfo() {
 
   const { default: defaultInfo, deviceDetect, ...clientData } = clientInfo as ClientInfo;
 
-  data.value = clientData;
-  classes.value = Object.keys(clientData).filter(
-    (key) => typeof (clientData as any)[key] === 'boolean' && (clientData as any)[key]
-  );
+  if (import.meta.client) {
+    data.value = clientData;
+    classes.value = Object.keys(clientData).filter(
+      (key) => typeof (clientData as any)[key] === 'boolean' && (clientData as any)[key]
+    );
+  }
 
   return { data, classes };
 }
