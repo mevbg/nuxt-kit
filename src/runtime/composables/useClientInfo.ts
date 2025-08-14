@@ -1,4 +1,4 @@
-import { computed, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 
 export function useClientInfo() {
   const data = ref<Record<string, any>>({});
@@ -9,11 +9,14 @@ export function useClientInfo() {
     )
   );
 
-  if (import.meta.client) {
-    import('mobile-device-detect').then(({ default: defaultInfo, deviceDetect, ...clientData }) => {
-      data.value = clientData;
-    });
-  }
+  onBeforeMount(async () => {
+    const {
+      default: defaultInfo,
+      deviceDetect,
+      ...clientData
+    } = await import('mobile-device-detect');
+    data.value = clientData;
+  });
 
   return { data, classes };
 }
