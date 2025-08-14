@@ -1,19 +1,18 @@
-import * as clientInfo from 'mobile-device-detect';
-import { ref } from 'vue';
-
-type ClientInfo = typeof clientInfo & { default: Record<string, any> };
+import { computed, ref } from 'vue';
 
 export function useClientInfo() {
   const data = ref<Record<string, any>>({});
-  const classes = ref<string[]>([]);
 
-  const { default: defaultInfo, deviceDetect, ...clientData } = clientInfo as ClientInfo;
+  const classes = computed(() =>
+    Object.keys(data.value).filter(
+      (key) => typeof (data.value as any)[key] === 'boolean' && (data.value as any)[key]
+    )
+  );
 
   if (import.meta.client) {
-    data.value = clientData;
-    classes.value = Object.keys(clientData).filter(
-      (key) => typeof (clientData as any)[key] === 'boolean' && (clientData as any)[key]
-    );
+    import('mobile-device-detect').then(({ default: defaultInfo, deviceDetect, ...clientData }) => {
+      data.value = clientData;
+    });
   }
 
   return { data, classes };
