@@ -33,11 +33,6 @@ export function requestWithTimeout<T = unknown>(
   > = {},
   timeoutDuration: number = 5000
 ): Promise<T> {
-  // Set NODE_TLS_REJECT_UNAUTHORIZED for development to handle self-signed certificates
-  if (process.env.NODE_ENV === 'development') {
-    process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-  }
-
   return timeoutRequestPromise(
     (signal) =>
       $fetch(`${process.env.API_URL}/${endpoint}`, {
