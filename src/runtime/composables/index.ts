@@ -1,4 +1,4 @@
-export * from './useClientInfo';
+export * from './useClientInfoClasses';
 export * from './useErrorHandler';
 export * from './useHeadLinks';
 export * from './useMetaData';
