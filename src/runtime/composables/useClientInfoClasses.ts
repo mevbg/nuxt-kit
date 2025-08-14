@@ -1,14 +1,13 @@
+import * as clientInfo from 'mobile-device-detect';
 import { ref } from 'vue';
+
+type ClientInfo = typeof clientInfo & { default: Record<string, any> };
 
 export function useClientInfoClasses() {
   const data = ref<Record<string, any>>({});
 
   const setClientInfoClasses = async () => {
-    const {
-      default: defaultInfo,
-      deviceDetect,
-      ...clientData
-    } = await import('mobile-device-detect');
+    const { default: defaultInfo, deviceDetect, ...clientData } = clientInfo as ClientInfo;
 
     data.value = clientData;
 
