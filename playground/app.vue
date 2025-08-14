@@ -62,7 +62,7 @@
 
     htmlAttrs: {
       lang: 'bg-BG',
-      class: computed(() => [colorSchemeClassName.value, ...clientClasses].join(' '))
+      class: computed(() => [colorSchemeClassName.value, ...clientClasses.value].join(' '))
     }
   });
 </script>
