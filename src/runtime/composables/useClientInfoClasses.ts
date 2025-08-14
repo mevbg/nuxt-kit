@@ -1,13 +1,7 @@
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 
 export function useClientInfoClasses() {
   const data = ref<Record<string, any>>({});
-
-  const classes = computed(() =>
-    Object.keys(data.value).filter(
-      (key) => typeof (data.value as any)[key] === 'boolean' && (data.value as any)[key]
-    )
-  );
 
   const setClientInfoClasses = async () => {
     const {
@@ -18,7 +12,15 @@ export function useClientInfoClasses() {
 
     data.value = clientData;
 
-    window.document.documentElement.classList.add(...classes.value);
+    const classes = Object.keys(clientData).filter(
+      (key) =>
+        typeof (clientData as Record<string, any>)[key] === 'boolean' &&
+        (clientData as Record<string, any>)[key]
+    );
+
+    if (classes.length > 0) {
+      window.document.documentElement.classList.add(...classes);
+    }
   };
 
   return { setClientInfoClasses };
