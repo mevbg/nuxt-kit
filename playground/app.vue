@@ -55,14 +55,14 @@
     serverSideSystemScheme,
     setColorSchemeMode
   } = useColorScheme();
-  const { classes: clientClasses } = useClientInfo();
 
+  useClientInfoClasses();
   useHead({
     title: pkg.title,
 
     htmlAttrs: {
       lang: 'bg-BG',
-      class: computed(() => [colorSchemeClassName.value, ...clientClasses.value].join(' '))
+      class: computed(() => [colorSchemeClassName.value].join(' '))
     }
   });
 </script>
