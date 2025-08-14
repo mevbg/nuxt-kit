@@ -59,10 +59,6 @@ export default defineNuxtModule<NuxtKitOptions>({
     // Add the composables
     addImports([
       {
-        name: 'useClientInfoClasses',
-        from: resolver.resolve('./runtime/composables/useClientInfoClasses')
-      },
-      {
         name: 'useErrorHandler',
         from: resolver.resolve('./runtime/composables/useErrorHandler')
       },

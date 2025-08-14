@@ -51,10 +51,6 @@
     "./useNotificationSystem": {
       "types": "./dist/runtime/composables/useNotificationSystem.d.ts",
       "import": "./dist/runtime/composables/useNotificationSystem.js"
-    },
-    "./useClientInfoClasses": {
-      "types": "./dist/runtime/composables/useClientInfoClasses.d.ts",
-      "import": "./dist/runtime/composables/useClientInfoClasses.js"
     }
   },
   "files": [
