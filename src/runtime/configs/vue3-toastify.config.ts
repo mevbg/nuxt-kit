@@ -1,4 +1,3 @@
-import { isMobileOnly } from 'mobile-device-detect';
 import type { ToastContainerOptions } from 'vue3-toastify';
 
 export const transitions = [
@@ -23,7 +22,7 @@ export const toastifyDefaultType = 'info';
 
 export const toastifyDefaultConfig: ToastContainerOptions = {
   // dangerouslyHTMLString: true,
-  position: isMobileOnly ? 'top-center' : 'top-right',
+  position: 'top-center',
   transition: 'bounce',
   autoClose: 5000,
   hideProgressBar: false,
