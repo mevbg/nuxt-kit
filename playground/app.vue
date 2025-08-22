@@ -2,8 +2,17 @@
   <div :style="{ textAlign: 'center' }">
     <h1>{{ pkg.title }}</h1>
 
+    <div
+      :style="{
+        marginBlock: '1rem'
+      }"
+    >
+      <ColorSchemeButton @click="handleColorSchemeClick" />
+    </div>
+
     <ConditionalClientOnly :condition="!serverSideSystemScheme">
       <div
+        v-if="colorSchemeControllers"
         :style="{
           display: 'inline-flex',
           justifyContent: 'left',
@@ -44,7 +53,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
   import pkg from '../package.json';
   import ConditionalClientOnly from '../src/runtime/components/ConditionalClientOnly.vue';
 
@@ -64,6 +73,12 @@
       class: computed(() => [colorSchemeClassName.value].join(' '))
     }
   });
+
+  const colorSchemeControllers = ref<boolean>(false);
+
+  const handleColorSchemeClick = () => {
+    colorSchemeControllers.value = !colorSchemeControllers.value;
+  };
 </script>
 
 <style>
