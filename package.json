@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "@mevbg/design-essentials-vendor": "^2.0.4",
-    "@mevbg/nuxt-color-scheme": "^1.1.2",
+    "@mevbg/nuxt-color-scheme": "^2.0.2",
     "@nuxt/kit": "^4.0.3",
     "@vueuse/nuxt": "^13.7.0",
     "floating-vue": "^5.2.2",
@@ -88,7 +88,7 @@
     "@nuxt/schema": "^4.0.3",
     "@types/node": "latest",
     "changelogen": "^0.6.2",
-    "eslint": "^9.33.0",
+    "eslint": "^9.34.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
     "nuxt": "^4.0.3",

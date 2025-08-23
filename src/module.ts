@@ -9,7 +9,7 @@ import {
   installModule
 } from '@nuxt/kit';
 import type { Nuxt } from 'nuxt/schema';
-import { DEFAULT_COLOR_SCHEME } from './runtime/defaults';
+import { DEFAULT_PRIMARY_COLOR_SCHEME } from './runtime/defaults';
 import type { NuxtKitOptions } from './types/options';
 
 // Re-export types for TypeScript support
@@ -28,7 +28,7 @@ export default defineNuxtModule<NuxtKitOptions>({
   defaults: {
     wm: true,
     colorScheme: {
-      default: DEFAULT_COLOR_SCHEME,
+      primaryScheme: DEFAULT_PRIMARY_COLOR_SCHEME,
       systemScheme: true
     }
   },
@@ -41,7 +41,7 @@ export default defineNuxtModule<NuxtKitOptions>({
     Promise.all([
       installModule('@vueuse/nuxt'),
       installModule('@mevbg/nuxt-color-scheme', {
-        default: options.colorScheme?.default ?? DEFAULT_COLOR_SCHEME,
+        primaryScheme: options.colorScheme?.primaryScheme ?? DEFAULT_PRIMARY_COLOR_SCHEME,
         systemScheme: options.colorScheme?.systemScheme ?? true
       })
     ]);

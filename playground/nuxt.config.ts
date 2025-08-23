@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   modules: ['../src/module'],
   mevKit: {
     colorScheme: {
-      default: 'light',
+      primaryScheme: 'light',
       systemScheme: true
     }
   },
