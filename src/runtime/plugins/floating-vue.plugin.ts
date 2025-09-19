@@ -5,7 +5,7 @@ import { floatingVueDefaultConfig } from '../configs/floating-vue.config';
 
 export default defineNuxtPlugin((nuxtApp) => {
   const {
-    public: { floatingVue: floatingVueConfig }
+    public: { floating: floatingVueConfig }
   } = useRuntimeConfig();
 
   const config = Object.assign({}, floatingVueDefaultConfig, floatingVueConfig);
