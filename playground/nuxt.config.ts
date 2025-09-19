@@ -5,6 +5,9 @@ export default defineNuxtConfig({
     colorScheme: {
       primaryScheme: 'light',
       systemScheme: true
+    },
+    toastify: {
+      autoClose: 3000
     }
   },
   devtools: { enabled: true }

@@ -39,6 +39,8 @@ export default defineNuxtModule<NuxtKitOptions>({
   async setup(options: NuxtKitOptions, nuxt: Nuxt) {
     // Add the configuration to the runtime config
     nuxt.options.runtimeConfig.public.wm = options.wm;
+    nuxt.options.runtimeConfig.public.toastify = options.toastify;
+    nuxt.options.runtimeConfig.public.floating = options.floating;
 
     // Install the modules
     Promise.all([
