@@ -74,9 +74,9 @@
   },
   "dependencies": {
     "@mevbg/design-essentials-vendor": "^2.0.4",
-    "@mevbg/nuxt-color-scheme": "^2.0.2",
-    "@nuxt/kit": "^4.0.3",
-    "@vueuse/nuxt": "^13.7.0",
+    "@mevbg/nuxt-color-scheme": "^2.0.3",
+    "@nuxt/kit": "^4.1.2",
+    "@vueuse/nuxt": "^13.9.0",
     "floating-vue": "^5.2.2",
     "mobile-device-detect": "^0.4.3",
     "vue3-toastify": "^0.2.8"
@@ -85,15 +85,15 @@
     "@nuxt/devtools": "^2.6.3",
     "@nuxt/eslint-config": "^1.9.0",
     "@nuxt/module-builder": "^1.0.2",
-    "@nuxt/schema": "^4.0.3",
+    "@nuxt/schema": "^4.1.2",
     "@types/node": "latest",
     "changelogen": "^0.6.2",
-    "eslint": "^9.34.0",
+    "eslint": "^9.35.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
-    "nuxt": "^4.0.3",
-    "prettier-plugin-organize-imports": "^4.2.0",
+    "nuxt": "^4.1.2",
+    "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "~5.9.2",
-    "vue-tsc": "^3.0.6"
+    "vue-tsc": "^3.0.7"
   }
 }
