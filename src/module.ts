@@ -9,6 +9,8 @@ import {
   installModule
 } from '@nuxt/kit';
 import type { Nuxt } from 'nuxt/schema';
+import { floatingVueDefaultConfig } from './runtime/configs/floating-vue.config';
+import { toastifyDefaultConfig } from './runtime/configs/vue3-toastify.config';
 import { DEFAULT_PRIMARY_COLOR_SCHEME } from './runtime/defaults';
 import type { NuxtKitOptions } from './types/options';
 
@@ -30,7 +32,9 @@ export default defineNuxtModule<NuxtKitOptions>({
     colorScheme: {
       primaryScheme: DEFAULT_PRIMARY_COLOR_SCHEME,
       systemScheme: true
-    }
+    },
+    toastify: toastifyDefaultConfig,
+    floating: floatingVueDefaultConfig
   },
 
   async setup(options: NuxtKitOptions, nuxt: Nuxt) {
@@ -53,8 +57,8 @@ export default defineNuxtModule<NuxtKitOptions>({
     // Do not add the extension since the `.ts` will be
     // transpiled to `.mjs` after `npm run prepack`
     addPlugin(resolver.resolve('./runtime/plugins/wm.plugin'));
-    addPlugin(resolver.resolve('./runtime/plugins/notification-system.plugin'));
-    addPlugin(resolver.resolve('./runtime/plugins/tooltip-system.plugin'));
+    addPlugin(resolver.resolve('./runtime/plugins/floating-vue.plugin'));
+    addPlugin(resolver.resolve('./runtime/plugins/vue3-toastify.plugin'));
 
     // Add the composables
     addImports([
