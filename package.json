@@ -1,7 +1,7 @@
 {
   "name": "@mevbg/nuxt-kit",
   "title": "Mev’s Nuxt Kit",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Mev’s personal Nuxt kit module.",
   "keywords": [
     "nuxt kit",
