@@ -7,5 +7,5 @@ export interface NuxtKitOptions {
   designEssentials?: MasterGeneratorParams;
   colorScheme?: ColorSchemeOptions;
   toastify?: ToastContainerOptions;
-  floating?: any;
+  floating?: unknown;
 }
