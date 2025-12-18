@@ -1,6 +1,7 @@
 export default defineNuxtConfig({
-  compatibilityDate: '2025-08-21',
   modules: ['../src/module'],
+  devtools: { enabled: true },
+  compatibilityDate: '2025-08-21',
   mevKit: {
     colorScheme: {
       primaryScheme: 'light',
@@ -9,6 +10,5 @@ export default defineNuxtConfig({
     toastify: {
       autoClose: 3000
     }
-  },
-  devtools: { enabled: true }
+  }
 });

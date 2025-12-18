@@ -80,8 +80,12 @@ export default defineNuxtModule<NuxtKitOptions>({
         from: resolver.resolve('./runtime/composables/useScrollDirectionUp')
       },
       {
-        name: 'useMetaData',
-        from: resolver.resolve('./runtime/composables/useMetaData')
+        name: 'useAppMeta',
+        from: resolver.resolve('./runtime/composables/useAppMeta')
+      },
+      {
+        name: 'usePageMeta',
+        from: resolver.resolve('./runtime/composables/usePageMeta')
       },
       {
         name: 'useHeadLinks',
