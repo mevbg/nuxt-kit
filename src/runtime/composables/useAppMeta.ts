@@ -1,5 +1,5 @@
 type AppMeta = {
-  path: string;
+  assetsPath?: string;
   locale: string;
   themeColor: string;
   robots: boolean;
@@ -9,7 +9,7 @@ type AppMeta = {
 };
 
 export function useAppMeta({
-  path = '/assets',
+  assetsPath = '/assets',
   locale,
   themeColor,
   robots,
@@ -42,8 +42,8 @@ export function useAppMeta({
     { name: 'apple-mobile-web-app-title', content: siteTitle },
 
     { name: 'msapplication-TileColor', content: themeColor },
-    { name: 'msapplication-TileImage', content: `${path}/mstile-144x144.png` },
-    { name: 'msapplication-config', content: `${path}/browserconfig.xml` },
+    { name: 'msapplication-TileImage', content: `${assetsPath}/mstile-144x144.png` },
+    { name: 'msapplication-config', content: `${assetsPath}/browserconfig.xml` },
 
     { property: 'og:site_name', content: siteTitle },
     { property: 'og:locale', content: locale },
