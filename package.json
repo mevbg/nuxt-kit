@@ -73,7 +73,7 @@
     "npm": ">=10.x"
   },
   "dependencies": {
-    "@mevbg/design-essentials-vendor": "^2.0.5",
+    "@mevbg/design-essentials-vendor": "^2.0.6",
     "@mevbg/nuxt-color-scheme": "^2.0.3",
     "@nuxt/kit": "^4.2.2",
     "@vueuse/nuxt": "^14.1.0",
@@ -94,6 +94,6 @@
     "nuxt": "^4.2.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "typescript": "~5.9.3",
-    "vue-tsc": "^3.2.1"
+    "vue-tsc": "^3.2.2"
   }
 }
