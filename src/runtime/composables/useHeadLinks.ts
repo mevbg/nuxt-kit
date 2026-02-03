@@ -23,102 +23,145 @@ type AppleTouchStartupImage = {
 };
 
 export function useHeadLinks(path: string = '/assets') {
-  const manifests = [
+  const manifests: Manifest[] = [
     { rel: 'manifest', href: `${path}/manifest.webmanifest` },
     { rel: 'yandex-tableau-widget', href: `${path}/yandex-browser-manifest.json` }
-  ] as Manifest[];
+  ];
 
-  const favicons = [
-    { rel: 'icon', type: 'image/x-icon', href: `${path}/favicon.ico` },
+  const favicons: Favicon[] = [
+    { rel: 'icon', type: 'image/x-icon', href: `${path}/favicon.ico?v=${Date.now()}` },
+    ...[
+      '16',
+      '32',
+      '48'
+    ].map(size => ({ rel: 'icon', type: 'image/png', sizes: `${size}x${size}`, href: `${path}/favicon-${size}x${size}.png?v=${Date.now()}` })),
+  ];
 
-    { rel: 'icon', type: 'image/png', sizes: '16x16', href: `${path}/favicon-16x16.png` },
-    { rel: 'icon', type: 'image/png', sizes: '32x32', href: `${path}/favicon-32x32.png` },
-    { rel: 'icon', type: 'image/png', sizes: '48x48', href: `${path}/favicon-48x48.png` }
-  ] as Favicon[];
+  const appleTouchIcons: AppleTouchIcon[] = [
+    ...[
+      '57',
+      '60',
+      '72',
+      '76',
+      '114',
+      '120',
+      '144',
+      '152',
+      '167',
+      '180',
+      '1024'
+    ].map(size => ({ rel: 'apple-touch-icon' as const, sizes: `${size}x${size}`, href: `${path}/apple-touch-icon-${size}x${size}.png?v=${Date.now()}` })),
+  ];
 
-  const appleTouchIcons = [
-    { rel: 'apple-touch-icon', sizes: '57x57',     href: `${path}/apple-touch-icon-57x57.png` },
-    { rel: 'apple-touch-icon', sizes: '60x60',     href: `${path}/apple-touch-icon-60x60.png` },
-    { rel: 'apple-touch-icon', sizes: '72x72',     href: `${path}/apple-touch-icon-72x72.png` },
-    { rel: 'apple-touch-icon', sizes: '76x76',     href: `${path}/apple-touch-icon-76x76.png` },
-    { rel: 'apple-touch-icon', sizes: '114x114',   href: `${path}/apple-touch-icon-114x114.png` },
-    { rel: 'apple-touch-icon', sizes: '120x120',   href: `${path}/apple-touch-icon-120x120.png` },
-    { rel: 'apple-touch-icon', sizes: '144x144',   href: `${path}/apple-touch-icon-144x144.png` },
-    { rel: 'apple-touch-icon', sizes: '152x152',   href: `${path}/apple-touch-icon-152x152.png` },
-    { rel: 'apple-touch-icon', sizes: '167x167',   href: `${path}/apple-touch-icon-167x167.png` },
-    { rel: 'apple-touch-icon', sizes: '180x180',   href: `${path}/apple-touch-icon-180x180.png` },
-    { rel: 'apple-touch-icon', sizes: '1024x1024', href: `${path}/apple-touch-icon-1024x1024.png` }
-  ] as AppleTouchIcon[];
-
-  const appleTouchStartupImages = [
-      // iPod Touch 5th generation and later • iPhone SE
-    { rel: 'apple-touch-startup-image', media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-640x1136.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-1136x640.png` },
-
-    // iPhone SE • iPhone 6 • iPhone 6s • iPhone 7 • iPhone 8
-    { rel: 'apple-touch-startup-image', media: '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-750x1334.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-1334x750.png` },
-
-    // iPhone 6 Plus • iPhone 6s Plus • iPhone 7 Plus • iPhone 8 Plus
-    { rel: 'apple-touch-startup-image', media: '(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1242x2208.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2208x1242.png` },
-
-    // iPhone XR • iPhone 11
-    { rel: 'apple-touch-startup-image', media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-828x1792.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-1792x828.png` },
-
-    // iPhone XS Max • iPhone 11 Pro Max
-    { rel: 'apple-touch-startup-image', media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1242x2688.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2688x1242.png` },
-
+  const orientation = ['portrait', 'landscape'] as const;
+  type Orientation = typeof orientation[number];
+  type StartupImageData = { width: number; height: number; ratio: number; short: number; long: number };
+  const appleTouchStartupImagesData: StartupImageData[] = [
     // iPhone X • iPhone XS • iPhone 11 Pro • iPhone 12 mini • iPhone 13 mini
-    { rel: 'apple-touch-startup-image', media: '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1125x2436.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2436x1125.png` },
-
+    {
+      width: 375,
+      height: 812,
+      ratio: 3,
+      short: 1125,
+      long: 2436
+    },
     //  iPhone 12 • iPhone 12 Pro • iPhone 13 • iPhone 13 Pro • iPhone 14
-    { rel: 'apple-touch-startup-image', media: '(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1170x2532.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2532x1170.png` },
-
+    {
+      width: 390,
+      height: 844,
+      ratio: 3,
+      short: 1170,
+      long: 2532
+    },
     // iPhone 12 Pro Max • iPhone 13 Pro Max • iPhone 14 Plus
-    { rel: 'apple-touch-startup-image', media: '(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1284x2778.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2778x1284.png` },
-
+    {
+      width: 428,
+      height: 926,
+      ratio: 3,
+      short: 1284,
+      long: 2778
+    },
     // iPhone 14 Pro • iPhone 15 Pro • iPhone 15
-    { rel: 'apple-touch-startup-image', media: '(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1179x2556.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2556x1179.png` },
-
+    {
+      width: 393,
+      height: 852,
+      ratio: 3,
+      short: 1179,
+      long: 2556
+    },
     // iPhone 14 Pro Max • iPhone 15 Pro Max • iPhone 15 Plus
-    { rel: 'apple-touch-startup-image', media: '(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1290x2796.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2796x1290.png` },
-
+    {
+      width: 430,
+      height: 932,
+      ratio: 3,
+      short: 1290,
+      long: 2796
+    },
     // iPad 9.7 • iPad Air 9.7 • iPad Mini 7.9 • iPad Pro 9.7
-    { rel: 'apple-touch-startup-image', media: '(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1536x2048.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2048x1536.png` },
-
+    {
+      width: 768,
+      height: 1024,
+      ratio: 2,
+      short: 1536,
+      long: 2048
+    },
     // iPad 10.2
-    { rel: 'apple-touch-startup-image', media: '(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1620x2160.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 810px) and (device-height: 1080px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2160x1620.png` },
-
+    {
+      width: 810,
+      height: 1080,
+      ratio: 2,
+      short: 1620,
+      long: 2160
+    },
     // iPad Air 10.5
-    { rel: 'apple-touch-startup-image', media: '(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1668x2224.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2224x1668.png` },
-
+    {
+      width: 834,
+      height: 1112,
+      ratio: 2,
+      short: 1668,
+      long: 2224
+    },
     // iPad 11 • iPad Pro 10.5
-    { rel: 'apple-touch-startup-image', media: '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1668x2388.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2388x1668.png` },
-
+    {
+      width: 834,
+      height: 1194,
+      ratio: 2,
+      short: 1668,
+      long: 2388
+    },
     // iPad Pro 12.9
-    { rel: 'apple-touch-startup-image', media: '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-2048x2732.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2732x2048.png` },
-
+    {
+      width: 1024,
+      height: 1366,
+      ratio: 2,
+      short: 2048,
+      long: 2732
+    },
     // iPad Mini 8.3
-    { rel: 'apple-touch-startup-image', media: '(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1488x2266.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 744px) and (device-height: 1133px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2266x1488.png` },
-
+    {
+      width: 744,
+      height: 1133,
+      ratio: 2,
+      short: 1488,
+      long: 2266
+    },
     // iPad Air 10.9
-    { rel: 'apple-touch-startup-image', media: '(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)', href: `${path}/apple-touch-startup-image-1640x2360.png` },
-    { rel: 'apple-touch-startup-image', media: '(device-width: 820px) and (device-height: 1180px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)', href: `${path}/apple-touch-startup-image-2360x1640.png` }
-  ] as AppleTouchStartupImage[];
+    {
+      width: 820,
+      height: 1180,
+      ratio: 2,
+      short: 1640,
+      long: 2360
+    }
+  ];
+  const appleTouchStartupImagesParser: (data: StartupImageData, o: Orientation) => AppleTouchStartupImage = ({ width, height, ratio, short, long }, o) => ({
+    rel: 'apple-touch-startup-image' as const,
+    media: `(device-width: ${width}px) and (device-height: ${height}px) and (-webkit-device-pixel-ratio: ${ratio}) and (orientation: ${o})`,
+    href: `${path}/apple-touch-startup-image-${o === 'portrait' ? short : long}x${o === 'portrait' ? long : short}.png?v=${Date.now()}`
+  });
+  const appleTouchStartupImages: AppleTouchStartupImage[] = [
+    ...orientation.flatMap((o) => appleTouchStartupImagesData.map((data) => appleTouchStartupImagesParser(data, o))),
+  ];
 
   return [
     ...manifests,
