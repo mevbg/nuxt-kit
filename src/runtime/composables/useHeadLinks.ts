@@ -1,3 +1,7 @@
+const today = new Date()
+today.setHours(0, 0, 0, 0);
+const DEFAULT_HASH = today.getTime().toString();
+
 type Manifest = {
   rel: string;
   href: string;
@@ -22,19 +26,19 @@ type AppleTouchStartupImage = {
   href: string;
 };
 
-export function useHeadLinks(path: string = '/assets') {
+export function useHeadLinks(path: string = '/assets', hash: string = DEFAULT_HASH) {
   const manifests: Manifest[] = [
     { rel: 'manifest', href: `${path}/manifest.webmanifest` },
     { rel: 'yandex-tableau-widget', href: `${path}/yandex-browser-manifest.json` }
   ];
 
   const favicons: Favicon[] = [
-    { rel: 'icon', type: 'image/x-icon', href: `${path}/favicon.ico?v=${Date.now()}` },
+    { rel: 'icon', type: 'image/x-icon', href: `${path}/favicon.ico?v=${hash}` },
     ...[
       '16',
       '32',
       '48'
-    ].map(size => ({ rel: 'icon', type: 'image/png', sizes: `${size}x${size}`, href: `${path}/favicon-${size}x${size}.png?v=${Date.now()}` })),
+    ].map(size => ({ rel: 'icon', type: 'image/png', sizes: `${size}x${size}`, href: `${path}/favicon-${size}x${size}.png?v=${hash}` })),
   ];
 
   const appleTouchIcons: AppleTouchIcon[] = [
@@ -197,7 +201,7 @@ export function useHeadLinks(path: string = '/assets') {
   const appleTouchStartupImagesParser: (data: StartupImageData, o: Orientation) => AppleTouchStartupImage = ({ width, height, ratio, short, long }, o) => ({
     rel: 'apple-touch-startup-image' as const,
     media: `(device-width: ${width}px) and (device-height: ${height}px) and (-webkit-device-pixel-ratio: ${ratio}) and (orientation: ${o})`,
-    href: `${path}/apple-touch-startup-image-${o === 'portrait' ? short : long}x${o === 'portrait' ? long : short}.png?v=${Date.now()}`
+    href: `${path}/apple-touch-startup-image-${o === 'portrait' ? short : long}x${o === 'portrait' ? long : short}.png?v=${hash}`
   });
   const appleTouchStartupImages: AppleTouchStartupImage[] = [
     ...orientation.flatMap((o) => appleTouchStartupImagesData.map((data) => appleTouchStartupImagesParser(data, o))),
