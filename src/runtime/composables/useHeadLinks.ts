@@ -57,6 +57,46 @@ export function useHeadLinks(path: string = '/assets') {
   type Orientation = typeof orientation[number];
   type StartupImageData = { width: number; height: number; ratio: number; short: number; long: number };
   const appleTouchStartupImagesData: StartupImageData[] = [
+    // iPod Touch 5th generation and later • iPhone SE
+    {
+      width: 320,
+      height: 568,
+      ratio: 2,
+      short: 640,
+      long: 1136
+    },
+    // iPhone SE • iPhone 6 • iPhone 6s • iPhone 7 • iPhone 8
+    {
+      width: 375,
+      height: 667,
+      ratio: 2,
+      short: 750,
+      long: 1334
+    },
+    // iPhone 6 Plus • iPhone 6s Plus • iPhone 7 Plus • iPhone 8 Plus
+    {
+      width: 414,
+      height: 736,
+      ratio: 3,
+      short: 1242,
+      long: 2208
+    },
+    // iPhone XR • iPhone 11
+    {
+      width: 414,
+      height: 896,
+      ratio: 2,
+      short: 828,
+      long: 1792
+    },
+    // iPhone XS Max • iPhone 11 Pro Max
+    {
+      width: 414,
+      height: 896,
+      ratio: 3,
+      short: 1242,
+      long: 2688
+    },
     // iPhone X • iPhone XS • iPhone 11 Pro • iPhone 12 mini • iPhone 13 mini
     {
       width: 375,
