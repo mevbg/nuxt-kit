@@ -1,7 +1,3 @@
-const today = new Date()
-today.setHours(0, 0, 0, 0);
-const DEFAULT_HASH = today.getTime().toString();
-
 type Manifest = {
   rel: string;
   href: string;
@@ -26,7 +22,7 @@ type AppleTouchStartupImage = {
   href: string;
 };
 
-export function useHeadLinks(path: string = '/assets', hash: string = DEFAULT_HASH) {
+export function useHeadLinks({ path = '/assets', hash = Date.now().toString() }: { path?: string; hash?: string } = {}) {
   const manifests: Manifest[] = [
     { rel: 'manifest', href: `${path}/manifest.webmanifest` },
     { rel: 'yandex-tableau-widget', href: `${path}/yandex-browser-manifest.json` }
