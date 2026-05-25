@@ -73,7 +73,7 @@
     "npm": ">=10.x"
   },
   "dependencies": {
-    "@mevbg/design-essentials-vendor": "^2.0.8",
+    "@mevbg/design-essentials-vendor": "^2.0.9",
     "@mevbg/nuxt-color-scheme": "^2.0.5",
     "@nuxt/kit": "^4.3.0",
     "@vueuse/nuxt": "^14.2.0",
